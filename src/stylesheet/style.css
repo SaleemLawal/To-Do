@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Roboto:ital@0;1&display=swap');
+
 :root {
     --fs-300: 0.7rem;
     --fs-400: 1rem;
@@ -21,9 +23,117 @@
     --clr-form-accent: rgba(0,0,0,.3);
     --clr-important: rgba(255,0,0,.35);
     --shadow-primary: 0 0 10px rgba(0,0,0,.2);
-    --shadow-secondary: 0 0 10px rgba(0,0,0,.1)
+    --shadow-secondary: 0 0 10px rgba(0,0,0,.1);
+    --playfair-font: 'Playfair Display', serif;
+    --roboto-font: 'Roboto', sans-serif;
 }
 html, body{
     height: 100%;
     background: var(--clr-bg-primary) no-repeat center center fixed;
+    font-family: var(--playfair-font);
 }
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling the main container */
+div.main-container {
+    border: 1px solid transparent;
+    border-radius: 1.5rem;
+    width: 60%;
+    min-height: 75%;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    overflow: auto;
+}
+div.main-container h1{
+    text-align: center;
+    margin: 0;
+    margin-top: 0.67em;
+
+}
+
+/* Styling the left container */ 
+.left-container{
+    background-color: var(--clr-bg-accent);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.left-container div.home-actions, 
+.left-container div.projects{
+    margin-left: 1rem;
+}
+.left-container div.home-actions a,
+.left-container div.projects a{
+    text-decoration: none;
+    color: var(--font-clr-primary);
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.left-container div.home-actions a:hover,
+.left-container div.projects a:hover{
+    color: var(--clr-important);
+}
+div.home-actions div.collections{
+    margin-top: 1.5rem;
+}
+div.event-sections,
+div.collections{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+div.left-container div.projects{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+button{
+    display: flex;
+    align-items: flex-start;
+    font-weight: var(--fw-700);
+    justify-content: center;
+    border: none;
+    color: var(--font-clr-btn);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.75rem
+}
+div.projects button.create-project{
+    background-color: var(--clr-btn-primary);
+    margin: 0 0.75rem 1rem 0;
+}
+div.projects button.create-project:hover{
+    background-color: var(--clr-btn-focus);
+}
+
+/* Styling the right container */ 
+div.right-container{
+    background-color: var(--clr-bg-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+div.main-container .right-container h1{
+    text-align: left;
+    margin: 0;
+}
+div.action-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+
