@@ -20,23 +20,23 @@ function navigatePage(clicked){
     const title = document.querySelector('[data-title]');
     title.innerHTML = clicked;
     title.setAttribute('data-title', clicked);
-    const updateScreen = renderScreen();
+    const screen = renderScreen();
 
     switch (clicked) {
         case 'General':
-            updateScreen.renderGeneral();
+            screen.renderGeneral();
             break;
         case 'Today':
-            updateScreen.renderToday();
+            screen.renderToday();
             break;
         case 'Upcoming':
-            updateScreen.renderUpcoming();
+            screen.renderUpcoming();
             break;
         case 'Completed':
-            updateScreen.renderCompleted();
+            screen.renderCompleted();
             break;
         case 'Trash':
-            updateScreen.renderTrash();
+            screen.renderTrash();
             break;
         default:
             console.error(`Unhandled action: ${clicked}`);
