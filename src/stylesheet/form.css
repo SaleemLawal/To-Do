@@ -15,12 +15,14 @@
 }
 
 .form-container {
-    width: 15%;
+    width: 20%;
+    height: 45%;
     background-color: #fff;
     border-radius: 1rem;
     box-shadow: var(--shadow-primary);
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     gap: 1rem;
     padding: 1.5rem;
     position: relative;
@@ -39,10 +41,12 @@
 }
 .form-container .priority{
     display: flex;
+    flex-direction: row;
     align-items: baseline;
-    gap: 0.5rem;
+    justify-content: center;
 }
-.form-container input{
+.form-container input,
+.form-container textarea{
     border: 1px solid var(--clr-form-accent);
     border-radius: 0.5rem;
     box-shadow: var(--shadow-secondary);
@@ -51,8 +55,9 @@
     font-weight: var(--fw-500);
     color: var(--font-clr-primary);
 }
-.form-container input:focus{
-    border: 1px solid var(--clr-form-accent);
+.form-container input:focus,
+.form-container textarea:focus{
+    border: 1px solid var(--clr-btn-focus);
     box-shadow: var(--shadow-primary);
 }
 
