@@ -23,6 +23,7 @@ div.main-container {
     display: grid;
     grid-template-columns: 0.5fr 2fr;
     overflow: auto;
+    box-shadow: var(--shadow-primary);
 }
 div.main-container h1{
     text-align: center;
@@ -83,21 +84,27 @@ div.projects .projects-sections .project-item{
 
 button{
     display: flex;
-    align-items: flex-start;
-    font-weight: var(--fw-700);
+    place-items: center;
     justify-content: center;
+    font-weight: var(--fw-700);
     border: none;
-    color: var(--font-clr-btn);
     padding: 0.15rem 0.5rem;
-    border-radius: 0.75rem
+    border-radius: 0.75rem;
+    color: var(--font-clr-btn);
 }
-div.left-container button.create-project{
+div.left-container button.create-project,
+.form-container button[type="submit"]{
     background-color: var(--clr-btn-primary);
     margin: 0 0.75rem 1rem 0.67rem;
 }
-div.left-container button.create-project:hover,
 div.action-buttons button:hover{
-    background-color: var(--clr-btn-focus);
+    background-color: var(--clr-btn-secondary);
+    box-shadow: var(--shadow-primary);
+}
+div.left-container button.create-project:hover,
+.form-container button[type="submit"]:hover{
+    background-color: var(--clr-btn-accent);
+    box-shadow: var(--shadow-primary);
 }
 
 /* Styling the right container */ 
@@ -130,10 +137,10 @@ div.task-lists .task{
     background-color: var(--clr-bg-secondary-xl);
     box-shadow: var(--shadow-secondary);
 }
-div.task-lists .task:hover{
+/* div.task-lists .task:hover{
     background-color: var(--clr-bg-secondary);
     box-shadow: var(--shadow-primary);
-}
+} */
 
 .display-none{
     display: none;
