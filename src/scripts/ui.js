@@ -3,7 +3,7 @@
 // Listens for user interactions (e.g., button clicks) and triggers corresponding actions.
 
 // Function to handle user actions and navigate the page
-function getAction() {
+export default function getAction() {
     // adds event listener to the divs in the home-actions container
     const mainActions = document.querySelectorAll('[data-actions]');
     mainActions.forEach(action => {
@@ -46,7 +46,7 @@ function navigatePage(clicked){
 
 // Function to render different screens
 function renderScreen(){
-    const mainContainer = document.querySelector('[data-main-container]');
+    const mainContainer = document.querySelector('[data-right-container]');
     const pTag = mainContainer.querySelector('[data-description]');
     const getActionButtons = mainContainer.querySelector('[data-action-buttons]');
 
@@ -114,5 +114,4 @@ function renderScreen(){
     return {renderGeneral, renderToday, renderUpcoming, renderCompleted, renderTrash}
 }
 
-export {getAction}
 
