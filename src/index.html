@@ -6,7 +6,7 @@
     <title>To-Do List</title>
 </head>
 <body>
-    <div class="main-container">
+    <div class="main-container" data-main-container>
         <div class="left-container">
             <h1>Todo-List</h1>
             <div class="home-actions">
@@ -54,13 +54,13 @@
                     <!-- project-item data = data-actions-->
                 </div>
             </div>
-            <button class="create-project">
+            <button class="create-project" data-create-project-btn>
                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="24px" height="24px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"></path></svg>
                 Create Project
             </button>
 
         </div>
-        <div class="right-container" data-main-container>
+        <div class="right-container" data-right-container>
            <h1 class="current-page" data-title = "General">
             General
            </h1>
@@ -68,13 +68,16 @@
             A general list of tasks
            </p>
            <div class="action-buttons" data-action-buttons>
-                <button class="toggle">
+                <button class="toggle" data-btn-toggle>
                     All
                 </button>
-                <button class="create-tasks" id="create-tasks">
+                <button class="create-tasks" data-create-todo>
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="24px" height="24px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"></path></svg>
                     Create Todo
                 </button>
+           </div>
+           <div class="modal display-none">
+            <!-- container for form -->
            </div>
            <div class="task-lists" data-task-list>
             <!-- task -->
