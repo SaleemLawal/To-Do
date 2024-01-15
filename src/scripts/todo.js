@@ -2,25 +2,36 @@
 // Includes properties like title, dueDate, priority, notes, and checklist.
 // Also includes methods to edit any of these properties.
 
-export default function createTodo(title, dueDate, priority){
-    const makeTodo = () => {
-        let title = title
-        let dueDate = dueDate
-        let priority = priority
-        return {title, dueDate, priority}
+export default class Todo {
+    constructor(title, dueDate, priority) {
+        this.title = title;
+        this.dueDate = dueDate;
+        this.priority = priority;
     }
-    const editTitle = (newTitle) => {
-        title = newTitle
-    }
-    const editDueDate = (newDueDate) => {
-        dueDate = newDueDate
-    }
-    const editPriority = (newPriority) => {
-        priority = newPriority
-    }
-    const getTitle = () => title
-    const getDueDate = () => dueDate
-    const getPriority = () => priority
 
-    return {makeTodo, editTitle, editDueDate, editPriority, getTitle, getDueDate, getPriority}
+    editTitle(newTitle) {
+        this.title = newTitle;
+    }
+
+    editDueDate(newDueDate) {
+        this.dueDate = newDueDate;
+    }
+
+    editPriority(newPriority) {
+        this.priority = newPriority;
+    }
+
+    getTitle() {
+        return this.title;
+    }
+
+    getDueDate() {
+        return this.dueDate;
+    }
+
+    getPriority() {
+        return this.priority;
+    }
 }
+
+
