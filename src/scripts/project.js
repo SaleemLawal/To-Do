@@ -5,6 +5,7 @@ export default class Project{
     constructor (title, description){
         this.title = title
         this.description = description
+        this.id = "id" + Math.random().toString(16).slice(2);
         this.todos = []
     }
     addTodo (todo){
@@ -27,5 +28,8 @@ export default class Project{
     }
     getDescription(){
         return this.description
+    }
+    getId(){
+        return this.id
     }
 }
