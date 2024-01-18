@@ -7,6 +7,7 @@ export default class Todo {
         this.title = title;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.id = "id" + Math.random().toString(16).slice(2);
     }
 
     editTitle(newTitle) {
@@ -32,6 +33,13 @@ export default class Todo {
     getPriority() {
         return this.priority;
     }
+    getId() {
+        return this.id;
+    }
+    static fromObject(obj) {
+        const todo = new Todo(obj.title, obj.dueDate, obj.priority);
+        todo.id = obj.id; 
+        return todo;
+    }
 }
-
 
