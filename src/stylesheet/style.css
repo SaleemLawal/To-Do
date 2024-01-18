@@ -129,20 +129,39 @@ div.task-lists{
     gap: 0.5rem;
 }
 div.task-lists .task{
-    display: flex;
-    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    grid-template-columns: max-content 1fr max-content max-content;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.5rem;
     align-items: center;
     padding: 0.75rem;
     border-radius: 0.5rem;
     background-color: var(--clr-bg-secondary-xl);
     box-shadow: var(--shadow-secondary);
 }
-/* div.task-lists .task:hover{
-    background-color: var(--clr-bg-secondary);
-    box-shadow: var(--shadow-primary);
-} */
+div.task-lists .task .todo-card-important{
+    position: absolute;
+    top: 0;
+    left: -6px;
+    padding: 0 1rem;
+    box-shadow: var(--shadow-secondary);
+    font-size: var(--fs-300);
+    font-weight: var(--fw-700);
+    background-color: var(--clr-important);
+    border-radius: 1rem 0 1rem 0;
+}
 
-.display-none{
+div.task-lists .task .todo-div-btn > button{
+    display: inline;
+    background-color: transparent;
+    padding: 0 0.25rem;
+}
+
+.display-none,
+.todo-card-not-important{
     display: none;
 }
 
