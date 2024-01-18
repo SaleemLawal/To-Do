@@ -1,19 +1,25 @@
-// Acts as the main application module.
-// Coordinates interactions between different parts of the application.
-// Initializes event listeners and sets up the overall application structure.
-
 import normalize from '../stylesheet/normalize.css'
 import style from  '../stylesheet/style.css'
-import getAction from './ui.js';
-import { projectFunction, todoFunction } from './form.js';
+import navigation from './ui.js';
+import { makeProject, makeTodo } from './form.js';
+import initStorage from './storage.js';
+import {renderGeneral} from './ui.js';
+
+// initialize local storage
+initStorage();
+renderGeneral();
 
 // Function to initialize the application
-function initApp() {
+export default function createButtonListener() {
+    // gets the create buttons for projects and todos
     const createProject = document.querySelector('[data-create-project-btn]');
     const createTodo = document.querySelector('[data-create-todo]');
-    // need to add function that creates a new project and todo when the buttons are clicked
-    createProject.addEventListener('click', projectFunction);
-    createTodo.addEventListener('click', todoFunction);
+    // add event listeners to the create buttons
+    createProject.addEventListener('click', makeProject);
+    // check if the create todo button exists
+    if (createTodo) createTodo.addEventListener('click', makeTodo);
 }
-initApp();
-getAction();
+
+
+// localStorage.clear();
+navigation();
