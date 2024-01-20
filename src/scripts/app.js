@@ -5,10 +5,6 @@ import { makeProject, makeTodo } from './form.js';
 import initStorage from './storage.js';
 import {renderGeneral} from './ui.js';
 
-// initialize local storage
-initStorage();
-renderGeneral();
-
 // Function to initialize the application
 export default function createButtonListener() {
     // gets the create buttons for projects and todos
@@ -19,7 +15,10 @@ export default function createButtonListener() {
     // check if the create todo button exists
     if (createTodo) createTodo.addEventListener('click', makeTodo);
 }
-
+createButtonListener();
+// initialize local storage
+initStorage();
+renderGeneral();
 
 // localStorage.clear();
 navigation();
