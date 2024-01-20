@@ -3,23 +3,36 @@ export default function initStorage() {
 
     categories.forEach(category => {
         if (!localStorage[category]) {
-            localStorage[category] = JSON.stringify([]);
+            localStorage.setItem(category, JSON.stringify([]));
         }
     });
 }
 
-function saveTodo(category, todo) {
-    const todos = JSON.parse(localStorage[category]);
-    todos.push(todo);
-    localStorage[category] = JSON.stringify(todos);
+function saveTodoUpdate(category, updatedTodo, update) {
+    const todos = JSON.parse(localStorage.getItem(category)) || [];
+    
+    // Find the index of the todo to be updated
+    const todoIndex = todos.findIndex(curr => curr.id === updatedTodo.id);
+
+    // If the todo is found, replace it; otherwise, push the new todo
+    if (todoIndex !== -1 && update === 'Append') {
+        todos.splice(todoIndex, 1, updatedTodo);
+    } else if (todoIndex !== -1 && update === 'Delete') {
+        todos.splice(todoIndex, 1);
+    }else{
+        todos.push(updatedTodo);
+    }
+
+    // Save the updated array back to local storage
+    localStorage.setItem(category, JSON.stringify(todos));
 }
 
 function getTodos(category) {
-    return JSON.parse(localStorage[category]);
+    return JSON.parse(localStorage.getItem(category));
 }
 
-export function saveGeneralTodos(todo) {
-    saveTodo('generalTodos', todo);
+export function saveGeneralTodos(todo, update) {
+    saveTodoUpdate('generalTodos', todo, update);
 }
 
 export function getGeneralTodos() {
@@ -27,7 +40,7 @@ export function getGeneralTodos() {
 }
 
 export function saveProject(project) {
-    saveTodo('project', project);
+    saveTodoUpdate('project', project);
 }
 
 export function getProject() {
@@ -35,7 +48,7 @@ export function getProject() {
 }
 
 export function saveTodayTodos(todo) {
-    saveTodo('todayTodos', todo);
+    saveTodoUpdate('todayTodos', todo);
 }
 
 export function getTodayTodos() {
@@ -43,7 +56,7 @@ export function getTodayTodos() {
 }
 
 export function saveUpcomingTodos(todo) {
-    saveTodo('upcomingTodos', todo);
+    saveTodoUpdate('upcomingTodos', todo);
 }
 
 export function getUpcomingTodos() {
@@ -51,7 +64,7 @@ export function getUpcomingTodos() {
 }
 
 export function saveCompletedTodos(todo) {
-    saveTodo('completedTodos', todo);
+    saveTodoUpdate('completedTodos', todo);
 }
 
 export function getCompletedTodos() {
@@ -59,7 +72,7 @@ export function getCompletedTodos() {
 }
 
 export function saveDeletedTodos(todo) {
-    saveTodo('deletedTodos', todo);
+    saveTodoUpdate('deletedTodos', todo);
 }
 
 export function getDeletedTodos() {
