@@ -1,7 +1,7 @@
 import Todo from './todo.js';
 import Project from './project.js';
 import { makeTodoItem, makeProjectItem } from './task.js';
-import {saveGeneralTodos} from './storage.js';
+import {saveGeneralTodos, getGeneralTodos} from './storage.js';
 
 // template for generating forms html content
 function generateFormTemplate(){
@@ -92,7 +92,7 @@ function generateForm(title, fields, submitButtonText, formType) {
 }
 
 // function to perform actions based on the form that was submitted
-function appendFormToScreen(formElement) {
+function appendFormToScreen(formElement, todo, callback) {
     // gets the modal and appends the form to it
     const modal = document.querySelector('.modal');
     modal.classList.remove('display-none');
@@ -119,7 +119,16 @@ function appendFormToScreen(formElement) {
             if (todoName === '' || todoDate === '') {
                 alert('Please fill out all fields.');
                 return;
-            }else{
+            }
+            // Check if it's an edit form or new todo form
+            const isEditForm = form.classList.contains('edit-form');
+            
+            if (isEditForm) {
+                // Update the existing todo object
+                todo.title = todoName;
+                todo.dueDate = todoDate;
+                todo.priority = todoPriority;
+            } else {
                 // create new todo
                 const newTodo = new Todo(todoName, todoDate, todoPriority);
                 addTodo(newTodo);
@@ -142,12 +151,15 @@ function appendFormToScreen(formElement) {
         // close the modal abd remove the form
         modal.classList.add('display-none');
         document.querySelector('.modal').removeChild(formElement);
+        if (todo && callback) {
+            callback(todo);
+        }
     });
 }
 
 // Display the new todo on the screen
 function addTodo(newTodo){
-    saveGeneralTodos(newTodo);
+    saveGeneralTodos(newTodo, 'Append');
     const newTodoItem = makeTodoItem(newTodo);
     const todoList = document.querySelector('[data-task-list]');
     todoList.appendChild(newTodoItem);
@@ -162,15 +174,74 @@ function addProject(newProject){
 // function to handle event listeners for the form
 export const makeProject = () => {
     const newProject = generateFormTemplate().generateProjectForm();
-    appendFormToScreen(newProject);
+    appendFormToScreen(newProject, null, null);
 }
 
 export const makeTodo = () => {
     // show the form for creating a new todo
     const newForm = generateFormTemplate().generateTodoForm();
-    appendFormToScreen(newForm);
+    appendFormToScreen(newForm, null, null);
 }
 
+export function editListener(e){
+    // when we click on the edit button, we want to bring up the form and allow editing
+    e.preventDefault();
+    const todoDiv = e.currentTarget.parentElement.parentElement;
+    // console.log(todoDiv);
+    // get the todo object from local storage
+    const todoId = todoDiv.dataset.taskId;
+    const todos = getGeneralTodos();
+    // find in local storage
+    const todoToUpdate = todos.find(todo => todo.id === todoId);
+    editForm(todoToUpdate);
+}
 
+export function deleteListener(e){
+    // when we click on the delete button, we want to delete the todo
+    e.preventDefault();
+    const todoDiv = e.currentTarget.parentElement.parentElement;
+    // get the todo object from local storage
+    const todoId = todoDiv.dataset.taskId;
+    const todos = getGeneralTodos();
+    // find in local storage
+    const todoToDelete = todos.find(todo => todo.id === todoId);
+    deleteForm(todoToDelete);
+}
 
+function deleteForm(todo) {
+    // find the todo in the local storage and delete it and remove it from the screen
+    const todos = getGeneralTodos();
+    const removeTodo = todos.find(curr => curr.id === todo.id);
+    saveGeneralTodos(removeTodo, 'Delete');
+    const todoDiv = document.querySelector(`[data-task-id="${todo.id}"]`);
+    todoDiv.remove();
+    location.reload();
+}
 
+function editForm(todo) {
+    // Show or create the edit form, and populate it with current todo values
+    const newForm = generateFormTemplate().generateTodoForm();
+    newForm.classList.add('edit-form');
+    // populate the form with the current todo values
+    newForm.querySelector('.form-title').textContent = 'Edit Todo';
+    newForm.querySelector('#todo-name').value = todo.title;
+    newForm.querySelector('#todo-date').value = todo.dueDate;
+    newForm.querySelector('#todo-priority').checked = todo.priority;
+
+    // Define a callback function to be executed after appendFormToScreen is completed
+    const afterFormAppended = (updatedTodo) => {
+        saveGeneralTodos(updatedTodo, 'Append');
+        // Update the todo on the screen if needed
+        const todoDiv = document.querySelector(`[data-task-id="${updatedTodo.id}"]`);
+        todoDiv.querySelector('p').textContent = updatedTodo.title;
+        todoDiv.querySelector('p:nth-of-type(2)').textContent = updatedTodo.dueDate;
+        // edits the priority
+        const priorityDiv = todoDiv.querySelector('p:nth-of-type(3)')
+        priorityDiv.textContent = updatedTodo.priority ? 'Important' : 'Not Important';
+        priorityDiv.setAttribute('data-task-priority', updatedTodo.priority ? 'important' : 'not-important');
+        priorityDiv.classList.remove('todo-card-important', 'todo-card-not-important');
+        priorityDiv.classList.add(`todo-card-${updatedTodo.priority ? 'important' : 'not-important'}`);
+        location.reload();
+    };
+    appendFormToScreen(newForm, todo, afterFormAppended);
+}
